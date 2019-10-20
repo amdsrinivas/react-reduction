@@ -24,7 +24,9 @@ const ProgressPage = React.lazy(() => import('pages/ProgressPage'));
 const TablePage = React.lazy(() => import('pages/TablePage'));
 const TypographyPage = React.lazy(() => import('pages/TypographyPage'));
 const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
-
+const HomePage = React.lazy(() => import('pages/NewsApp/HomePage'));
+const SentimentAnalysisPage = React.lazy(() => import('pages/NewsApp/SentimentAnalysisPage'));
+const TopicModellingPage = React.lazy(() => import('pages/NewsApp/TopicModellingPage'));
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
 };
@@ -35,7 +37,7 @@ class App extends React.Component {
       <BrowserRouter basename={getBasename()}>
         <GAListener>
           <Switch>
-            <LayoutRoute
+            {/* <LayoutRoute
               exact
               path="/login"
               layout={EmptyLayout}
@@ -50,7 +52,7 @@ class App extends React.Component {
               component={props => (
                 <AuthPage {...props} authState={STATE_SIGNUP} />
               )}
-            />
+            /> */}
 
             <MainLayout breakpoint={this.props.breakpoint}>
               <React.Suspense fallback={<PageSpinner />}>
@@ -74,6 +76,9 @@ class App extends React.Component {
                 <Route exact path="/forms" component={FormPage} />
                 <Route exact path="/input-groups" component={InputGroupPage} />
                 <Route exact path="/charts" component={ChartPage} />
+                <Route exact path="/home" component={HomePage}/>
+                <Route exact path="/sentiment" component={SentimentAnalysisPage}/>
+                <Route exact path="/topic" component={TopicModellingPage}/>                
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />
