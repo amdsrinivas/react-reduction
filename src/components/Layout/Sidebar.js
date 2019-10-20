@@ -53,38 +53,41 @@ const navComponents = [
   },
   { to: '/forms', name: 'forms', exact: false, Icon: MdChromeReaderMode },
   { to: '/input-groups', name: 'input groups', exact: false, Icon: MdViewList },
-  {
-    to: '/dropdowns',
-    name: 'dropdowns',
-    exact: false,
-    Icon: MdArrowDropDownCircle,
-  },
-  { to: '/badges', name: 'badges', exact: false, Icon: MdStar },
-  { to: '/alerts', name: 'alerts', exact: false, Icon: MdNotificationsActive },
-  { to: '/progress', name: 'progress', exact: false, Icon: MdBrush },
-  { to: '/modals', name: 'modals', exact: false, Icon: MdViewDay },
+  // {
+  //   to: '/dropdowns',
+  //   name: 'dropdowns',
+  //   exact: false,
+  //   Icon: MdArrowDropDownCircle,
+  // },
+  // { to: '/badges', name: 'badges', exact: false, Icon: MdStar },
+  // { to: '/alerts', name: 'alerts', exact: false, Icon: MdNotificationsActive },
+  // { to: '/progress', name: 'progress', exact: false, Icon: MdBrush },
+  // { to: '/modals', name: 'modals', exact: false, Icon: MdViewDay },
 ];
 
 const navContents = [
-  { to: '/typography', name: 'typography', exact: false, Icon: MdTextFields },
-  { to: '/tables', name: 'tables', exact: false, Icon: MdBorderAll },
+  // { to: '/typography', name: 'typography', exact: false, Icon: MdTextFields },
+  // { to: '/tables', name: 'tables', exact: false, Icon: MdBorderAll },
 ];
 
 const pageContents = [
-  { to: '/login', name: 'login / signup', exact: false, Icon: MdAccountCircle },
-  {
-    to: '/login-modal',
-    name: 'login modal',
-    exact: false,
-    Icon: MdViewCarousel,
-  },
+  // { to: '/login', name: 'login / signup', exact: false, Icon: MdAccountCircle },
+  // {
+  //   to: '/login-modal',
+  //   name: 'login modal',
+  //   exact: false,
+  //   Icon: MdViewCarousel,
+  // },
 ];
 
 const navItems = [
-  { to: '/', name: 'dashboard', exact: true, Icon: MdDashboard },
-  { to: '/cards', name: 'cards', exact: false, Icon: MdWeb },
-  { to: '/charts', name: 'charts', exact: false, Icon: MdInsertChart },
-  { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets },
+  // { to: '/', name: 'dashboard', exact: true, Icon: MdDashboard },
+  // { to: '/cards', name: 'cards', exact: false, Icon: MdWeb },
+  // { to: '/charts', name: 'charts', exact: false, Icon: MdInsertChart },
+  // { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets },
+  { to: '/home', name:'Home Page', exact: true, Icon: MdDashboard},
+  { to: '/sentiment', name:'Sentiment Analysis', exact: true, Icon: MdPages},
+  { to: '/topic', name:'Topic Modelling', exact : true, Icon: MdWeb}
 ];
 
 const bem = bn.create('sidebar');
