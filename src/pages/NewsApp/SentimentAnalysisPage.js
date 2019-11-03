@@ -37,7 +37,8 @@ class SentimentAnalysisPage extends React.Component{
     
     getInitialState(){
         return {
-            'input_text' : '',
+            'title' : '',
+            'body' : '',
             'input_version' : 'v1',
             'output' : '',
             'feedback' : '-1',
@@ -70,13 +71,20 @@ class SentimentAnalysisPage extends React.Component{
                 <CardHeader> Enter the inputs :</CardHeader>
                 <CardBody>
                     <Form>
-                        <Label for="input_text">
-                            News Article:
+                        <Label for="title">
+                            Title:
+                        </Label>
+                        <Input type="text"
+                               name="title"
+                               value={this.state.title}
+                               onChange={(event) => this.setState({'title' : event.target.value})}/><br/>
+                        <Label for="body">
+                            Body:
                         </Label>
                         <Input type="textarea" 
-                               name="input_text" 
-                               value={this.state.input_text}
-                               onChange={(event) => this.setState({'input_text' : event.target.value, 'output' : null})}/><br/>
+                               name="body" 
+                               value={this.state.body}
+                               onChange={(event) => this.setState({'body' : event.target.value})}/><br/>
                         <Label for="version">
                             Select the model:
                         </Label>

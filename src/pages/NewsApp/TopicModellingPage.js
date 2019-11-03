@@ -22,6 +22,7 @@ const descriptions = {
     'v2' : 'Topic Modelling using SOTA BERT'
 }
 const feedback_enabled = false ;
+const axios = require('axios') ;
 
 class TopicModellingPage extends React.Component{
     constructor(props){
@@ -36,7 +37,8 @@ class TopicModellingPage extends React.Component{
     
     getInitialState(){
         return {
-            'input_text' : '',
+            'title' : '',
+            'body' : '',
             'input_version' : 'v1',
             'output' : '',
             'feedback' : '-1',
@@ -68,29 +70,55 @@ class TopicModellingPage extends React.Component{
                 <CardHeader> Enter the inputs :</CardHeader>
                 <CardBody>
                     <Form>
-                        <Label for="input_text">
-                            News Article:
+                    <Label for="title">
+                            Title:
+                        </Label>
+                        <Input type="text"
+                               name="title"
+                               value={this.state.title}
+                               onChange={(event) => this.setState({'title' : event.target.value})}/><br/>
+                        <Label for="body">
+                            Body:
                         </Label>
                         <Input type="textarea" 
-                               name="input_text" 
-                               value={this.state.input_text}
-                               onChange={(event) => this.setState({'input_text' : event.target.value, 'output' : null})}/><br/>
+                               name="body" 
+                               value={this.state.body}
+                               onChange={(event) => this.setState({'body' : event.target.value})}/><br/>
                         <Label for="version">
                             Select the model:
                         </Label>
                         <Input type="select" 
                                name="input_version"
                                value={this.state.input_version}
-                               onChange={(event) => {this.setState({'input_version' : event.target.value, 'output' : null})}}>
+                               onChange={(event) => {this.setState({'input_version' : event.target.value})}}>
                             {/* <option value="v1">Topic Modelling using LDA </option>
                             <option value="v2">Topic Modelling using SOTA BERT model</option> */}
                             {this.createOptions()}
                         </Input><br/>
                         <Button onClick = { () => { 
                                                     console.log('Inside onClick') ;
-                                                    console.log(' input_text : ' + this.state.input_text) ;
+                                                    console.log(' Title : ' + this.state.title) ;
+                                                    console.log(' Body : ' + this.state.body) ;
                                                     console.log(' input_version : ' + this.state.input_version) ;
-                                                    this.setState({'output' : 'Done'}) ;
+                                                    //this.setState({'output' : 'Done'}) ;
+                                                    var data = {'model' : 'TopicModel',
+                                                            'version' : this.state.input_version,
+                                                            'title' : this.state.title,
+                                                            'body' : this.state.body
+                                                            } ;
+                                                    console.log(data);
+                                                    axios.post("http://localhost:5000/js_to_python", data)
+                                                    .then( (resp) => 
+                                                                { 
+                                                                    var doughnut_data = {
+                                                                        datasets:[{
+                                                                            data: resp.data.probas
+                                                                        }],
+                                                                        labels : resp.data.labels
+                                                                    } ;
+                                                                    this.setState({'output' : 'Done', 'doughnut_data' : doughnut_data}); 
+                                                                    console.log(resp) ;
+                                                                }) ;
                                                 }}>Submit</Button>
                                                 &nbsp; &nbsp; &nbsp;
                         <Button  onClick = { () => {
@@ -105,21 +133,22 @@ class TopicModellingPage extends React.Component{
                 (<Row><Col xl={8} lg={12} md={12}><Card>
                     <CardHeader>Model Output</CardHeader>
                     <CardBody>
-                        <Doughnut data={{datasets: [
-                                                {
-                                                    data: [randomNum(), randomNum(), randomNum(), randomNum(), randomNum()],
-                                                    backgroundColor: [
-                                                        getColor('primary'),
-                                                        getColor('secondary'),
-                                                        getColor('success'),
-                                                        getColor('info'),
-                                                        getColor('danger'),
-                                                    ],
-                                                    label: 'Dataset 1',
-                                                },
-                                            ],
-                                        labels: ['Very Negative', 'Negative', 'Neutral', 'Positive', 'Very Postive']
-                                        }
+                        <Doughnut data={this.state.doughnut_data
+                            // {datasets: [
+                            //                     {
+                            //                         data: [randomNum(), randomNum(), randomNum(), randomNum(), randomNum()],
+                            //                         backgroundColor: [
+                            //                             getColor('primary'),
+                            //                             getColor('secondary'),
+                            //                             getColor('success'),
+                            //                             getColor('info'),
+                            //                             getColor('danger'),
+                            //                         ],
+                            //                         label: 'Dataset 1',
+                            //                     },
+                            //                 ],
+                            //             labels: ['Very Negative', 'Negative', 'Neutral', 'Positive', 'Very Postive']
+                            //             }
                                         }/>
                     </CardBody>
                 </Card>
